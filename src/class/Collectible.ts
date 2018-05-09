@@ -8,8 +8,8 @@ class Collectible extends Actor{
     update () {
 
         // Call parent update function
-        window['firsttry'].Actor.prototype.update.call(this);
-
+        // window['firsttry'].Actor.prototype.update.call(this);
+        super.update();
         // Kill mob if below the screen
         if (this.y > CONFIG.GAME_HEIGHT * CONFIG.PIXEL_RATIO + 200) {
             this.kill();

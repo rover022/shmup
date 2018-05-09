@@ -15,14 +15,8 @@ class Cloud extends Mob {
         this.animations.add('idle_7', [7]);
     }
 
-    /*globals CONFIG */
-    update() {
 
-        // Call the parent update function
-        window['firsttry'].Mob.prototype.update.call(this);
-    };
-
-    revive() {
+    revive(h?: number) {
 
         this.reset(
             this.game.rnd.integerInRange(0, CONFIG.WORLD_WIDTH) * 24 * CONFIG.PIXEL_RATIO,
@@ -34,12 +28,13 @@ class Cloud extends Mob {
             this.state.scrollSpeed) * CONFIG.PIXEL_RATIO;
 
 
-
         this.type = this.game.rnd.integerInRange(0, 7);
         this.play('idle_' + this.type);
 
         // Call the parent revive function
-        window['firsttry'].Mob.prototype.revive.call(this);
+        // window['firsttry'].Mob.prototype.revive.call(this);
+        return super.revive();
     };
+
 
 }

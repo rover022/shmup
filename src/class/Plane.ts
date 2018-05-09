@@ -1,4 +1,4 @@
-class Plane extends Enemy{
+class Plane extends Enemy {
     public maxHealth = 30;
     public speed = 60;
     public shootDelay = 3000;
@@ -19,7 +19,8 @@ class Plane extends Enemy{
         shootRotationSpeed: 0
     };
     private planeClass: number;
-    constructor(state ) {
+
+    constructor(state) {
         super(state, "mob_plane");
         this.planeClass = state.rnd.integerInRange(0, 7);
 
@@ -29,11 +30,13 @@ class Plane extends Enemy{
         this.animations.add('right', [offset + 2], 5, true);
         this.play('idle');
     }
-    update () {
+
+    update() {
         super.update();
         // Call the parent update function
 
     };
+
     /*globals*/
 
 // (function() {
@@ -83,16 +86,18 @@ class Plane extends Enemy{
 //     }());
 // }
 
-class Vessel extends Enemy{
-    constructor(state ) {
-        super(state, "mob_vessel_1");
-    }
+    // class
+    // Vessel
+    // extends
+    // Enemy {
+    // constructor(state) {
+    //     super(state, "mob_vessel_1");
+    // }
 }
-    function Vessel(state) {
 
-        // Call parent constructor
-        window['firsttry'].Enemy.call(this, state, 'mob_vessel_1');
-
+class Vessel extends Enemy {
+    constructor(state) {
+        super(state, "mob_vessel_1");
         this.maxHealth = 100;
         this.speed = 30;
         this.shootDelay = 2000;
@@ -115,18 +120,10 @@ class Vessel extends Enemy{
         this.animations.add('idle', [0], 5, true);
         this.play('idle');
     }
-
-    Vessel.prototype = Object.create(window['firsttry'].Enemy.prototype);
-    Vessel.prototype.constructor = Vessel;
-
-    Vessel.prototype.update = function () {
-
-        // Call the parent update function
-        window['firsttry'].Enemy.prototype.update.call(this);
-    };
 }
 
-class Flagship extends Enemy{
+
+class Flagship extends Enemy {
     /************************************************************************************************
      * FLAGSHIP CLASS
      *
@@ -134,10 +131,11 @@ class Flagship extends Enemy{
      *
      ************************************************************************************************/
 
-    function Flagship(state) {
+    constructor(state) {
 
         // Call parent constructor
-        window['firsttry'].Enemy.call(this, state, 'mob_flagship_1');
+        super(state, "mob_flagship_1")
+        // window['firsttry'].Enemy.call(this, state, 'mob_flagship_1');
 
         this.maxHealth = 750;
         this.speed = 10;
@@ -163,12 +161,5 @@ class Flagship extends Enemy{
         this.play('idle');
     }
 
-    Flagship.prototype = Object.create(window['firsttry'].Enemy.prototype);
-    Flagship.prototype.constructor = Flagship;
 
-    Flagship.prototype.update = function () {
-
-        // Call the parent update function
-        window['firsttry'].Enemy.prototype.update.call(this);
-    };
 }

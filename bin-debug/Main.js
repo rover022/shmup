@@ -26,16 +26,16 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-var __reflect = (this && this.__reflect) || function (p, c, t) {
-    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
-};
-var __extends = this && this.__extends || function __extends(t, e) { 
- function r() { 
- this.constructor = t;
-}
-for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-r.prototype = e.prototype, t.prototype = new r();
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -71,7 +71,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var Main = (function (_super) {
+var Main = /** @class */ (function (_super) {
     __extends(Main, _super);
     function Main() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -215,6 +215,8 @@ var Main = (function (_super) {
         button.verticalCenter = 0;
         this.addChild(button);
         button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        //
+        this.makenewui();
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
@@ -264,6 +266,17 @@ var Main = (function (_super) {
         panel.verticalCenter = 0;
         this.addChild(panel);
     };
+    Main.prototype.makenewui = function () {
+        var game = new Phaser.Game(CONFIG.GAME_WIDTH * CONFIG.PIXEL_RATIO, CONFIG.GAME_HEIGHT * CONFIG.PIXEL_RATIO, Phaser.AUTO, 
+        // 'firsttry-game',
+        '', null, false, false);
+        // game.config = CONFIG;
+        game.state.add('boot', Boot);
+        game.state.add('preloader', Preloader);
+        game.state.add('menu', Menu);
+        game.state.add('game', Game);
+        game.state.start('boot');
+    };
     return Main;
 }(eui.UILayer));
-__reflect(Main.prototype, "Main");
+//# sourceMappingURL=Main.js.map

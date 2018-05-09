@@ -1,22 +1,20 @@
 class Mob extends Actor {
-
-    public alive = true;
-    public health = 100;
-    public maxHealth = this.health;
     public isDamaged = false;
     public damageBlinkLast = 0;
-    public tint = 0xffffff;
 
     constructor(state, image) {
         super(state, image)
-
+        this.alive = true;
+        this.health = 100;
+        this.maxHealth = this.health;
+        this.tint = 0xffffff;
     }
 
-    update() {
+    public update(): void {
 
         // Call parent update function
-        window['firsttry'].Actor.prototype.update.call(this);
-
+        // window['firsttry'].Actor.prototype.update.call(this);
+        super.update();
         // Kill mob if below the screen
         if (this.y > CONFIG.GAME_HEIGHT * CONFIG.PIXEL_RATIO + 200) {
             this.kill();
@@ -26,7 +24,7 @@ class Mob extends Actor {
         this.updateTint();
     };
 
-    updateTint() {
+    public updateTint() {
 
         // Mob hit
         if (this.isDamaged) {
@@ -63,9 +61,10 @@ class Mob extends Actor {
         this.damageBlinkLast = CONFIG.BLINK_DAMAGE_TIME;
     };
 
-    revive() {
+    revive(health?: number) {
         // replenish health (dunno why, but it's always set to 1 when calling a dead sprite from a pool)
         this.health = this.maxHealth;
+        return this;
     };
 
     die = function () {

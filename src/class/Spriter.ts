@@ -14,6 +14,9 @@ class Spriter extends Phaser.Sprite {
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
     }
 
+    public get state(): Game {
+        return this.game.state.getCurrentState() as Game;
+    }
 
     // }
 

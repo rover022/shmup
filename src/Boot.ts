@@ -1,5 +1,23 @@
 import IGameConfig = Phaser.IGameConfig;
 
+
+class PlayerState {
+    className: string = 'Viper';
+    health: number = 100;
+    speed: number = 140;
+    accel: number = 8;
+    strength: number = 100;
+    rate: number = 8;
+
+    static make(obj: any): PlayerState {
+        let a = new PlayerState();
+        for (let objKey in obj) {
+            a[objKey] = obj[objKey];
+        }
+        return a;
+    }
+}
+
 class CONFIG implements IGameConfig {
     static GAME_WIDTH: number = 320;
     static GAME_HEIGHT: number = 400;
@@ -17,38 +35,39 @@ class CONFIG implements IGameConfig {
     static SCROLL_ACCEL: number = 15;
     static BLINK_DAMAGE_TIME: number = 8;
     static AUDIO_LEVEL: number = 0.5;
-    static CLASS_STATS: [{
+
+
+    static CLASS_STATS = [PlayerState.make({
         className: 'Viper',
         health: 100,
         speed: 140,
         accel: 8,
         strength: 100,
         rate: 8
-    }, {
+    }), PlayerState.make({
         className: 'Cobra',
         health: 80,
         speed: 160,
         accel: 9,
         strength: 80,
         rate: 7
-    }, {
+    }), PlayerState.make({
         className: 'Anaconda',
         health: 100,
         speed: 140,
         accel: 7,
         strength: 100,
         rate: 6
-    }, {
+    }), PlayerState.make({
         className: 'Boa',
         health: 140,
         speed: 100,
         accel: 5,
         strength: 150,
         rate: 4
-    }]
-    ;
+    })];
 
-    static DEBUG: {
+    static DEBUG = {
         bottomInfos: true,
         tileset: false,
     }
@@ -61,19 +80,9 @@ class CONFIG implements IGameConfig {
 //     return this.push.apply(this, rest);
 // };
 class Boot extends Phaser.State {
-
-
-////////////////////////////////////////////////////////
-// Array Remove - By John Resig (MIT Licensed)
-
-
-////////////////////////////////////////////////////////
-
-
     preload() {
-        this.load.image('preloader', 'assets/preloader.gif');
+        this.load.image('preloader', R.URL + 'assets/preloader.gif');
     }
-
 
     create() {
         this.game.input.maxPointers = 1;
@@ -99,6 +108,8 @@ class Boot extends Phaser.State {
 
         // }
         this.game.state.start('preloader');
+
+        console.log("Boot run preloader state")
     }
 };
 
