@@ -1,14 +1,14 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var PlayerState = /** @class */ (function () {
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
+var PlayerState = (function () {
     function PlayerState() {
         this.className = 'Viper';
         this.health = 100;
@@ -26,7 +26,8 @@ var PlayerState = /** @class */ (function () {
     };
     return PlayerState;
 }());
-var CONFIG = /** @class */ (function () {
+__reflect(PlayerState.prototype, "PlayerState");
+var CONFIG = (function () {
     function CONFIG() {
     }
     CONFIG.GAME_WIDTH = 320;
@@ -80,13 +81,14 @@ var CONFIG = /** @class */ (function () {
     };
     return CONFIG;
 }());
+__reflect(CONFIG.prototype, "CONFIG", ["Phaser.IGameConfig"]);
 ;
 // Array.prototype.remove = function (from, to) {
 //     var rest = this.slice((to || from) + 1 || this.length);
 //     this.length = from < 0 ? this.length + from : from;
 //     return this.push.apply(this, rest);
 // };
-var Boot = /** @class */ (function (_super) {
+var Boot = (function (_super) {
     __extends(Boot, _super);
     function Boot() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -95,6 +97,8 @@ var Boot = /** @class */ (function (_super) {
         this.load.image('preloader', R.URL + 'assets/preloader.gif');
     };
     Boot.prototype.create = function () {
+        //声音注册一下
+        SoundManager.getInstance().game = this.game;
         this.game.input.maxPointers = 1;
         // if (! this.game.device.desktop) {
         // } else {
@@ -118,5 +122,6 @@ var Boot = /** @class */ (function (_super) {
     };
     return Boot;
 }(Phaser.State));
+__reflect(Boot.prototype, "Boot");
 ;
 //# sourceMappingURL=Boot.js.map

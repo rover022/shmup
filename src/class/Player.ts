@@ -118,9 +118,9 @@ class Player extends Mob {
             let is_DOWN = this.game.input.keyboard.isDown(Keyboard.S);
 
             if (is_LEFT && this.x > 20 * CONFIG.PIXEL_RATIO) {
-                this.moveLeft( );
+                this.moveLeft();
             } else if (is_RIGHT && this.x < (CONFIG.WORLD_WIDTH * 24 - 20) * CONFIG.PIXEL_RATIO) {
-                this.moveRight( );
+                this.moveRight();
             } else {
                 this.floatH(delta);
             }
@@ -260,7 +260,9 @@ class Player extends Mob {
                 f = 5;
             }
 
-            this.game.sound['shoot_player_' + f].play('', 0, 0.25);
+
+            SoundManager.getInstance().play('shoot_player_' + f)
+            // this.game.sound['shoot_player_' + f].play('', 0, 0.25);
         }
     };
 
@@ -302,7 +304,6 @@ class Player extends Mob {
     };
 
     collectUpgrade(upgrade) {
-
         // TODO : relative upgrades
         // var nSteps = 7; // Number of upgrades needed for max level
         // var maxFactor = 2; // How many times the base (read class) level
@@ -330,8 +331,8 @@ class Player extends Mob {
 
         this.updateStats();
         this.updateBulletPool();
-
-        this.state.sound['collect_1'].play();
+        SoundManager.getInstance().play("collect_1");
+        // this.state.sound['collect_1'].play();
     };
 
 

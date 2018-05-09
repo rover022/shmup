@@ -8,13 +8,7 @@ class Bullet extends Spriter {
         super(state, 'mob_bullet_' + (type + 1));
     }
 
-
-    // revive(shooter: Actor, angle) {
     revive(h?: number) {
-        // this.shooter = shooter;
-        // this.reset(shooter.x, shooter.y);
-        //this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
-        //this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
         return super.revive()
     };
 

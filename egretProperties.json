@@ -35,6 +35,10 @@
     },
     {
       "name": "promise"
+    },
+    {
+      "name": "phaser",
+      "path": "C:\\Users\\chenbin2\\Documents\\EgretProjects\\facebook_shoot\\blibs\\phaser"
     }
   ]
 }

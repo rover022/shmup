@@ -44,7 +44,26 @@ var Enemy = /** @class */ (function (_super) {
     ;
     Enemy.prototype.kill = function () {
         // Call the parent die function
-        //window['firsttry'].Mob.prototype.die.call(this);
+        // Explosion sound
+        var s = this.maxHealth;
+        var f;
+        if (s < 80) {
+            f = 1;
+        }
+        else if (s < 200) {
+            f = 2;
+        }
+        else if (s < 500) {
+            f = 3;
+        }
+        else {
+            f = 4;
+        }
+        //敌人死亡时候播放声音
+        // console.log(this.alive);
+        if (this.alive) {
+            SoundManager.getInstance().play('explosion_' + f);
+        }
         _super.prototype.kill.call(this);
         // Cancel planed shoots
         var bulletCancel = this.bulletCancel;
@@ -59,21 +78,7 @@ var Enemy = /** @class */ (function (_super) {
         if (this.state.rnd.realInRange(0, 1) < this.lootProbability) {
             this.loot(this.lootType);
         }
-        // Explosion sound
-        var s = this.maxHealth, f;
-        if (s < 80) {
-            f = 1;
-        }
-        else if (s < 200) {
-            f = 2;
-        }
-        else if (s < 500) {
-            f = 3;
-        }
-        else {
-            f = 4;
-        }
-        this.game.sound['explosion_' + f].play();
+        // this.game.sound['explosion_' + f].play();
         return this;
     };
     ;

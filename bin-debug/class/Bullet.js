@@ -18,12 +18,7 @@ var Bullet = /** @class */ (function (_super) {
         _this.shooter = undefined;
         return _this;
     }
-    // revive(shooter: Actor, angle) {
     Bullet.prototype.revive = function (h) {
-        // this.shooter = shooter;
-        // this.reset(shooter.x, shooter.y);
-        //this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
-        //this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
         return _super.prototype.revive.call(this);
     };
     ;

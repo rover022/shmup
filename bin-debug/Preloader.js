@@ -83,4 +83,23 @@ var Preloader = /** @class */ (function (_super) {
     };
     return Preloader;
 }(Phaser.State));
+var SoundManager = /** @class */ (function () {
+    function SoundManager() {
+        this.isOpen = true;
+    }
+    SoundManager.getInstance = function () {
+        if (this._instance == null) {
+            this._instance = new SoundManager();
+        }
+        return this._instance;
+    };
+    SoundManager.prototype.play = function (_name) {
+        if (this.isOpen) {
+            // if (this.isOpen) {
+            this.game.sound.play(_name);
+            //console.log("play sound" + _name);
+        }
+    };
+    return SoundManager;
+}());
 //# sourceMappingURL=Preloader.js.map

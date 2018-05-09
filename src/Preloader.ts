@@ -8,7 +8,6 @@ class Preloader extends Phaser.State {
     public ready = false;
 
 
-
     preload() {
         this.asset = this.add.sprite(320, 240, 'preloader');
         this.asset.anchor.setTo(0.5, 0.5);
@@ -39,7 +38,7 @@ class Preloader extends Phaser.State {
         this.load.spritesheet('bonus_cube', R.URL + 'assets/cubes.png', 24, 24);
         this.load.spritesheet('bonus_coin', R.URL + 'assets/coins.png', 12, 12);
 
-        this.load.bitmapFont('minecraftia', R.URL + 'assets/minecraftia.png', R.URL +'assets/minecraftia.xml');
+        this.load.bitmapFont('minecraftia', R.URL + 'assets/minecraftia.png', R.URL + 'assets/minecraftia.xml');
 
 
         // Audio
@@ -87,5 +86,28 @@ class Preloader extends Phaser.State {
         this.ready = true;
     }
 
+
+}
+
+class SoundManager {
+    private static _instance: SoundManager;
+
+    public isOpen: boolean = true;
+    public game: Phaser.Game;
+
+    public static getInstance(): SoundManager {
+        if (this._instance == null) {
+            this._instance = new SoundManager();
+        }
+        return this._instance;
+    }
+
+    public play(_name) {
+        if (this.isOpen) {
+            // if (this.isOpen) {
+            this.game.sound.play(_name);
+            //console.log("play sound" + _name);
+        }
+    }
 
 }

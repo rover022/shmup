@@ -236,7 +236,8 @@ var Player = /** @class */ (function (_super) {
             else {
                 f = 5;
             }
-            this.game.sound['shoot_player_' + f].play('', 0, 0.25);
+            SoundManager.getInstance().play('shoot_player_' + f);
+            // this.game.sound['shoot_player_' + f].play('', 0, 0.25);
         }
     };
     ;
@@ -294,7 +295,8 @@ var Player = /** @class */ (function (_super) {
         }
         this.updateStats();
         this.updateBulletPool();
-        this.state.sound['collect_1'].play();
+        SoundManager.getInstance().play("collect_1");
+        // this.state.sound['collect_1'].play();
     };
     ;
     return Player;

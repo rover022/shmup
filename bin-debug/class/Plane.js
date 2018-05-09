@@ -1,14 +1,14 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Plane = /** @class */ (function (_super) {
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
+var Plane = (function (_super) {
     __extends(Plane, _super);
     function Plane(state) {
         var _this = _super.call(this, state, "mob_plane") || this;
@@ -44,7 +44,8 @@ var Plane = /** @class */ (function (_super) {
     ;
     return Plane;
 }(Enemy));
-var Vessel = /** @class */ (function (_super) {
+__reflect(Plane.prototype, "Plane");
+var Vessel = (function (_super) {
     __extends(Vessel, _super);
     function Vessel(state) {
         var _this = _super.call(this, state, "mob_vessel_1") || this;
@@ -70,7 +71,8 @@ var Vessel = /** @class */ (function (_super) {
     }
     return Vessel;
 }(Enemy));
-var Flagship = /** @class */ (function (_super) {
+__reflect(Vessel.prototype, "Vessel");
+var Flagship = (function (_super) {
     __extends(Flagship, _super);
     /************************************************************************************************
      * FLAGSHIP CLASS
@@ -106,4 +108,5 @@ var Flagship = /** @class */ (function (_super) {
     }
     return Flagship;
 }(Enemy));
+__reflect(Flagship.prototype, "Flagship");
 //# sourceMappingURL=Plane.js.map

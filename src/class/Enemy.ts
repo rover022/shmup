@@ -40,27 +40,9 @@ class Enemy extends Mob {
     kill() {
 
         // Call the parent die function
-        //window['firsttry'].Mob.prototype.die.call(this);
-        super.kill();
-        // Cancel planed shoots
-        let bulletCancel = this.bulletCancel;
-        this.shoots.forEach(((value, index, array) => {
-            value.die(bulletCancel);
-        }))
-
-        // this.shoots.forEach(function (shoot) {
-        //     // shoot.kill();
-        //     shoot.die()
-        // });
-
-        // Loot things
-        if (this.state.rnd.realInRange(0, 1) < this.lootProbability) {
-            this.loot(this.lootType);
-        }
-
         // Explosion sound
-        let s = this.maxHealth,
-            f;
+        let s = this.maxHealth;
+        let f: number;
 
         if (s < 80) {
             f = 1;
@@ -74,8 +56,31 @@ class Enemy extends Mob {
         else {
             f = 4;
         }
+        //敌人死亡时候播放声音
+        // console.log(this.alive);
+        if (this.alive) {
+            SoundManager.getInstance().play('explosion_' + f)
+        }
+        super.kill();
+        // Cancel planed shoots
+        let bulletCancel = this.bulletCancel;
+        this.shoots.forEach(((value, index, array) => {
+            value.die(bulletCancel);
+        }));
 
-        this.game.sound['explosion_' + f].play();
+        // this.shoots.forEach(function (shoot) {
+        //     // shoot.kill();
+        //     shoot.die()
+        // });
+
+        // Loot things
+        if (this.state.rnd.realInRange(0, 1) < this.lootProbability) {
+            this.loot(this.lootType);
+        }
+
+
+
+        // this.game.sound['explosion_' + f].play();
         return this;
     };
 

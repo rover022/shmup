@@ -85,6 +85,9 @@ class Boot extends Phaser.State {
     }
 
     create() {
+        //声音注册一下
+        SoundManager.getInstance().game = this.game;
+
         this.game.input.maxPointers = 1;
 
         // if (! this.game.device.desktop) {

@@ -1,20 +1,20 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
 function remove(array, from, to) {
     var rest = array.slice((to || from) + 1 || array.length);
     this.length = from < 0 ? array.length + from : from;
     return array.push.apply(array, rest);
 }
 ;
-var Game = /** @class */ (function (_super) {
+var Game = (function (_super) {
     __extends(Game, _super);
     function Game() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -68,7 +68,7 @@ var Game = /** @class */ (function (_super) {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.createGUI();
         // AUDIO
-        this.createAudio();
+        // this.createAudio();
     };
     Game.prototype.createGUI = function () {
         // GUI
@@ -448,7 +448,7 @@ var Game = /** @class */ (function (_super) {
             var tiles = [];
             for (i = 0; i < CONFIG.WORLD_WIDTH; i++) {
                 for (j = 0; j < CONFIG.WORLD_SWAP_HEIGHT; j++) {
-                    if (swapMap[i][j] === 21) { // We are on a earth tile
+                    if (swapMap[i][j] === 21) {
                         tiles.push([i, j]);
                     }
                 }
@@ -521,11 +521,13 @@ var Game = /** @class */ (function (_super) {
             player.kill();
             player.alive = false;
             this.explode(player);
-            this.sound['explosion_3'].play();
+            SoundManager.getInstance().play("explosion_3");
+            // this.sound['explosion_3'].play();
             this.statePlay2Postplay();
         }
         else {
-            this.sound['hurt_1'].play();
+            SoundManager.getInstance().play("hurt_1");
+            // this.sound['hurt_1'].play();
         }
         this.updateGUI();
     };
@@ -565,13 +567,13 @@ var Game = /** @class */ (function (_super) {
         if (this.player.isAlive) {
             this.scrollSpeed += CONFIG.SCROLL_ACCEL * delta / 60; // Accelerate scrolling speed
         }
-        if (this.ground.y < 0) { // Is camera still in the buffer zone ?
+        if (this.ground.y < 0) {
             // Let's scroll the ground
             this.ground.y += this.scrollSpeed * CONFIG.PIXEL_RATIO * delta;
         }
-        else { // Camera has reached the edge of the buffer zone, next chunk of map
+        else {
             this.scrollCounter += CONFIG.WORLD_SWAP_HEIGHT; //
-            if (this.scrollCounter > CONFIG.WORLD_HEIGHT) { // Has camera reached the end of the world ?
+            if (this.scrollCounter > CONFIG.WORLD_HEIGHT) {
                 this.scrollCounter = 0;
             }
             this.drawGround();
@@ -611,4 +613,5 @@ var Game = /** @class */ (function (_super) {
     };
     return Game;
 }(Phaser.State));
+__reflect(Game.prototype, "Game");
 //# sourceMappingURL=Game.js.map

@@ -43,6 +43,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var Button = Phaser.Button;
 var Menu = /** @class */ (function (_super) {
     __extends(Menu, _super);
     function Menu() {
@@ -53,7 +54,7 @@ var Menu = /** @class */ (function (_super) {
     }
     Menu.prototype.create = function () {
         var x = this.game.width / 2, y = this.game.height / 2;
-        this.titleTxt = this.add.bitmapText(x, y, 'minecraftia', 'PHASER SHMUP');
+        this.titleTxt = this.add.bitmapText(x, y, 'minecraftia', 'SHIP GAME');
         this.titleTxt.align = 'center';
         this.titleTxt.x = this.game.width / 2 - this.titleTxt.textWidth / 2;
         this.titleTxt.y = this.titleTxt.y - this.titleTxt.height * 2 + 5;
@@ -62,6 +63,9 @@ var Menu = /** @class */ (function (_super) {
         this.startTxt.align = 'center';
         this.startTxt.x = this.game.width / 2 - this.startTxt.textWidth / 2;
         this.input.onDown.add(this.onDown, this);
+        this.add.button(100, 100, "start", function () {
+            console.log("点我OK");
+        }, this);
     };
     Menu.prototype.update = function () {
         var keyboard = this.input.keyboard;

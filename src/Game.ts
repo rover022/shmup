@@ -99,7 +99,7 @@ class Game extends Phaser.State {
 
         // AUDIO
 
-        this.createAudio();
+        // this.createAudio();
     }
 
     public createGUI() {
@@ -703,10 +703,12 @@ class Game extends Phaser.State {
             player.kill();
             player.alive = false;
             this.explode(player);
-            this.sound['explosion_3'].play();
+            SoundManager.getInstance().play("explosion_3");
+            // this.sound['explosion_3'].play();
             this.statePlay2Postplay();
         } else {
-            this.sound['hurt_1'].play();
+            SoundManager.getInstance().play("hurt_1")
+            // this.sound['hurt_1'].play();
         }
 
         this.updateGUI();

@@ -1,11 +1,13 @@
+import Button = Phaser.Button;
+
 class Menu extends Phaser.State {
-    public titleTxt = null;
-    public startTxt = null;
+    public titleTxt:Phaser.BitmapText = null;
+    public startTxt:Phaser.BitmapText = null;
 
     create() {
         let x = this.game.width / 2
             , y = this.game.height / 2;
-        this.titleTxt = this.add.bitmapText(x, y, 'minecraftia', 'PHASER SHMUP');
+        this.titleTxt = this.add.bitmapText(x, y, 'minecraftia', 'SHIP GAME');
         this.titleTxt.align = 'center';
         this.titleTxt.x = this.game.width / 2 - this.titleTxt.textWidth / 2;
         this.titleTxt.y = this.titleTxt.y - this.titleTxt.height * 2 + 5;
@@ -16,6 +18,12 @@ class Menu extends Phaser.State {
         this.startTxt.x = this.game.width / 2 - this.startTxt.textWidth / 2;
 
         this.input.onDown.add(this.onDown, this);
+
+
+        this.add.button(100, 100, "start", () => {
+            console.log("点我OK");
+        }, this);
+
     }
 
     update() {

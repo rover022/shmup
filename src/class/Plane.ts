@@ -36,63 +36,6 @@ class Plane extends Enemy {
         // Call the parent update function
 
     };
-
-    /*globals*/
-
-// (function() {
-//         'use strict';
-//
-//         /************************************************************************************************
-//          * PLANE CLASS
-//          *
-//          * A specific type of Enemy
-//          *
-//          ************************************************************************************************/
-//
-//         function Plane(state) {
-//
-//             // Call parent constructor
-//             window['firsttry'].Enemy.call(this, state, 'mob_plane');
-//
-//
-//
-//
-//         }
-//
-//         Plane.prototype = Object.create(window['firsttry'].Enemy.prototype);
-//         Plane.prototype.constructor = Plane;
-//
-//
-//
-//
-//         /************************************************************************************************
-//          * VESSEL CLASS
-//          *
-//          * A specific type of (big) Enemy
-//          *
-//          ************************************************************************************************/
-//
-//
-//
-//
-//
-//
-//
-//         // Export the objects
-//         window['firsttry'] = window['firsttry'] || {};
-//         window['firsttry'].Plane = Plane;
-//         window['firsttry'].Vessel = Vessel;
-//         window['firsttry'].Flagship = Flagship;
-//     }());
-// }
-
-    // class
-    // Vessel
-    // extends
-    // Enemy {
-    // constructor(state) {
-    //     super(state, "mob_vessel_1");
-    // }
 }
 
 class Vessel extends Enemy {
