@@ -414,7 +414,7 @@ var Game = /** @class */ (function (_super) {
         // Collisions
         this.updateCollisions();
         // Cloud spawn
-        // this.updateCloudSpawn();
+        this.updateCloudSpawn();
         // Background
         this.updateBackground(this.delta);
     };
@@ -458,8 +458,9 @@ var Game = /** @class */ (function (_super) {
                     var r = this.rnd.integerInRange(0, tiles.length - 1 - n);
                     if (this.mobPoolsGround[k].countDead() > 0) {
                         enemy = this.mobPoolsGround[k].getFirstExists(false);
-                        enemy.revive(tiles[r][0], tiles[r][1]);
+                        enemy.reviveW(tiles[r][0], tiles[r][1]);
                         // tiles.remove(r);
+                        // 移除数组里面的元素
                         remove(tiles, r);
                     }
                 }
@@ -542,6 +543,9 @@ var Game = /** @class */ (function (_super) {
         explosion.play('boom', 15, false, true);
     };
     // MISC
+    /**
+     * 画游戏UI元素
+     */
     Game.prototype.updateGUI = function () {
         var gui = '';
         var life = '';

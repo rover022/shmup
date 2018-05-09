@@ -33,9 +33,7 @@ class Enemy extends Mob {
     };
 
     public shoot(shootConfig) {
-
         this.shoots.push(new Shoot(this.state, this, shootConfig));
-
         this.nextShotAt = this.state.time.now + this.shootDelay;
     };
 
@@ -61,7 +59,7 @@ class Enemy extends Mob {
         }
 
         // Explosion sound
-        var s = this.maxHealth,
+        let s = this.maxHealth,
             f;
 
         if (s < 80) {

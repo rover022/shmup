@@ -80,6 +80,15 @@ var Turret = /** @class */ (function (_super) {
         return _super.prototype.revive.call(this);
     };
     ;
+    Turret.prototype.reviveW = function (i, j) {
+        this.reset((i + 0.5) * 24 * CONFIG.PIXEL_RATIO, ((j + 0.5) - CONFIG.WORLD_SWAP_HEIGHT) * 28 * CONFIG.PIXEL_RATIO);
+        this.body.velocity.y = this.state.scrollSpeed * CONFIG.PIXEL_RATIO;
+        this.nextShotAt = this.game.rnd.integerInRange(0, this.shootDelay);
+        // Call the parent revive function
+        // window['firsttry'].Mob.prototype.revive.call(this);
+        return _super.prototype.revive.call(this);
+    };
+    ;
     return Turret;
 }(Enemy));
 //# sourceMappingURL=Turret.js.map

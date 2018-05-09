@@ -19,7 +19,7 @@ var Spriter = /** @class */ (function (_super) {
         _this.game.add.existing(_this);
         // Pure common things to ALL objects
         _this.anchor.setTo(0.5, 0.5);
-        // this.scale.setTo(CONFIG.PIXEL_RATIO, CONFIG.PIXEL_RATIO);
+        _this.scale.setTo(CONFIG.PIXEL_RATIO, CONFIG.PIXEL_RATIO);
         _this.game.physics.enable(_this, Phaser.Physics.ARCADE);
         return _this;
     }

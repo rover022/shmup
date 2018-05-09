@@ -13,22 +13,24 @@ class Bullet extends Spriter {
     revive(h?: number) {
         // this.shooter = shooter;
         // this.reset(shooter.x, shooter.y);
-        // this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
-        // this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
+        //this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
+        //this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
         return super.revive()
     };
 
+    reviveH(shooter: Actor, angle) {
+        this.shooter = shooter;
+        this.reset(shooter.x, shooter.y);
+        this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
+        this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
+        return super.revive()
+    };
+
+
     update() {
-
         if (this.alive) {
-
-            // Call parent update function
-            // window['firsttry'].Spriter.prototype.update.call(this);
             super.update();
-
-            // Kill bullet if out of the screen
-            var safeRange = 20;
-
+            let safeRange = 20;
             if (this.x < -safeRange * CONFIG.PIXEL_RATIO ||
                 this.x > (CONFIG.WORLD_WIDTH * 24 + safeRange) * CONFIG.PIXEL_RATIO ||
                 this.y < -safeRange * CONFIG.PIXEL_RATIO ||

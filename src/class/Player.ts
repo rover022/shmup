@@ -1,4 +1,6 @@
 import load = EXML.load;
+import Key = Phaser.Key;
+import Keyboard = Phaser.Keyboard;
 
 class Player extends Mob {
     playerClass: number = 0;
@@ -19,7 +21,7 @@ class Player extends Mob {
         // this.playerStats = CONFIG.CLASS_STATS[this.playerClass - 1];
         // this.classStats = this.playerStats;
 
-        super(state, "player_" + 1);
+        super(state, "player_" + 2);
         this.playerClass = this.game.rnd.between(1, 4);
         this.playerStats = CONFIG.CLASS_STATS[this.playerClass - 1];
         this.classStats = this.playerStats;
@@ -89,6 +91,7 @@ class Player extends Mob {
         let cursors = this.state.cursors;
         let keyboard = this.state.input.keyboard;
 
+
         if (this.state.gameState === 0) {	// Pre-play
             if (keyboard.isDown(Phaser.Keyboard.W)) {
                 this.state.statePreplay2Play();
@@ -105,28 +108,40 @@ class Player extends Mob {
             this.lastUpdate = this.game.time.now;
 
             // Move
+            //console.log("cursors.left.isDown:",cursors.left.isDown)
+            //console.log(this.x > 20 * CONFIG.PIXEL_RATIO)
 
-            if (cursors.left.isDown && this.x > 20 * CONFIG.PIXEL_RATIO) {
-                this.moveLeft(delta);
-            } else if (cursors.right.isDown && this.x < (CONFIG.WORLD_WIDTH * 24 - 20) * CONFIG.PIXEL_RATIO) {
-                this.moveRight(delta);
+
+            let is_LEFT = this.game.input.keyboard.isDown(Keyboard.A);
+            let is_RIGHT = this.game.input.keyboard.isDown(Keyboard.D);
+            let is_UP = this.game.input.keyboard.isDown(Keyboard.W);
+            let is_DOWN = this.game.input.keyboard.isDown(Keyboard.S);
+
+            if (is_LEFT && this.x > 20 * CONFIG.PIXEL_RATIO) {
+                this.moveLeft( );
+            } else if (is_RIGHT && this.x < (CONFIG.WORLD_WIDTH * 24 - 20) * CONFIG.PIXEL_RATIO) {
+                this.moveRight( );
             } else {
                 this.floatH(delta);
             }
-
-            if (cursors.up.isDown && this.y > 30 * CONFIG.PIXEL_RATIO) {
+            if (is_UP && this.y > 30 * CONFIG.PIXEL_RATIO) {
                 this.moveUp();
-            } else if (cursors.down.isDown && this.y < (CONFIG.GAME_HEIGHT - 20) * CONFIG.PIXEL_RATIO) {
+            } else if (is_DOWN && this.y < (CONFIG.GAME_HEIGHT - 20) * CONFIG.PIXEL_RATIO) {
                 this.moveDown();
             } else {
                 this.floatV(delta);
             }
 
             // Fire
-
-            if (keyboard.isDown(Phaser.Keyboard.W)) {
+            let isAuto = true;
+            if (isAuto) {
                 this.fire();
+            } else {
+                if (keyboard.isDown(Phaser.Keyboard.W)) {
+                    this.fire();
+                }
             }
+
         }
     };
 
@@ -146,23 +161,24 @@ class Player extends Mob {
         }
     };
 
-    moveLeft(delta) {
-        this.body.velocity.x -= this.accel * delta;
+    moveLeft() {
+        //console.log("moveLeft")
+        this.body.velocity.x -= this.accel * this.state.delta;
         if (this.body.velocity.x < -this.speed) {
             this.body.velocity.x = -this.speed;
         }
     };
 
-    moveRight(delta) {
-        this.body.velocity.x += this.accel * delta;
+    moveRight() {
+        //console.log("moveRight")
+        this.body.velocity.x += this.accel * this.state.delta;
         if (this.body.velocity.x > this.speed) {
             this.body.velocity.x = this.speed;
         }
-
     };
 
     moveUp() {
-
+        //console.log("moveUp")
         this.body.velocity.y -= this.accel * this.state.delta;
         if (this.body.velocity.y < -this.speed) {
             this.body.velocity.y = -this.speed;
@@ -171,6 +187,7 @@ class Player extends Mob {
     };
 
     moveDown() {
+        //console.log("moveDown")
         this.body.velocity.y += this.accel * this.state.delta;
         if (this.body.velocity.y > this.speed) {
             this.body.velocity.y = this.speed;
@@ -316,8 +333,6 @@ class Player extends Mob {
 
         this.state.sound['collect_1'].play();
     };
-
-
 
 
     /*globals CONFIG */

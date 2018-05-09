@@ -22,17 +22,22 @@ var Bullet = /** @class */ (function (_super) {
     Bullet.prototype.revive = function (h) {
         // this.shooter = shooter;
         // this.reset(shooter.x, shooter.y);
-        // this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
-        // this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
+        //this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
+        //this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
+        return _super.prototype.revive.call(this);
+    };
+    ;
+    Bullet.prototype.reviveH = function (shooter, angle) {
+        this.shooter = shooter;
+        this.reset(shooter.x, shooter.y);
+        this.body.velocity.x = (this.speed * Math.sin(angle)) * CONFIG.PIXEL_RATIO;
+        this.body.velocity.y = (this.speed * Math.cos(angle)) * CONFIG.PIXEL_RATIO;
         return _super.prototype.revive.call(this);
     };
     ;
     Bullet.prototype.update = function () {
         if (this.alive) {
-            // Call parent update function
-            // window['firsttry'].Spriter.prototype.update.call(this);
             _super.prototype.update.call(this);
-            // Kill bullet if out of the screen
             var safeRange = 20;
             if (this.x < -safeRange * CONFIG.PIXEL_RATIO ||
                 this.x > (CONFIG.WORLD_WIDTH * 24 + safeRange) * CONFIG.PIXEL_RATIO ||

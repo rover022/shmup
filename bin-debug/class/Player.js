@@ -9,13 +9,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var load = EXML.load;
+var Key = Phaser.Key;
+var Keyboard = Phaser.Keyboard;
 var Player = /** @class */ (function (_super) {
     __extends(Player, _super);
     function Player(state) {
         // this.playerClass = this.game.rnd.between(1, 4);
         // this.playerStats = CONFIG.CLASS_STATS[this.playerClass - 1];
         // this.classStats = this.playerStats;
-        var _this = _super.call(this, state, "player_" + 1) || this;
+        var _this = _super.call(this, state, "player_" + 2) || this;
         _this.playerClass = 0;
         _this.playerClass = _this.game.rnd.between(1, 4);
         _this.playerStats = CONFIG.CLASS_STATS[_this.playerClass - 1];
@@ -88,27 +90,39 @@ var Player = /** @class */ (function (_super) {
             var delta = (this.game.time.now - this.lastUpdate) / 1000; //in seconds
             this.lastUpdate = this.game.time.now;
             // Move
-            if (cursors.left.isDown && this.x > 20 * CONFIG.PIXEL_RATIO) {
-                this.moveLeft(delta);
+            //console.log("cursors.left.isDown:",cursors.left.isDown)
+            //console.log(this.x > 20 * CONFIG.PIXEL_RATIO)
+            var is_LEFT = this.game.input.keyboard.isDown(Keyboard.A);
+            var is_RIGHT = this.game.input.keyboard.isDown(Keyboard.D);
+            var is_UP = this.game.input.keyboard.isDown(Keyboard.W);
+            var is_DOWN = this.game.input.keyboard.isDown(Keyboard.S);
+            if (is_LEFT && this.x > 20 * CONFIG.PIXEL_RATIO) {
+                this.moveLeft();
             }
-            else if (cursors.right.isDown && this.x < (CONFIG.WORLD_WIDTH * 24 - 20) * CONFIG.PIXEL_RATIO) {
-                this.moveRight(delta);
+            else if (is_RIGHT && this.x < (CONFIG.WORLD_WIDTH * 24 - 20) * CONFIG.PIXEL_RATIO) {
+                this.moveRight();
             }
             else {
                 this.floatH(delta);
             }
-            if (cursors.up.isDown && this.y > 30 * CONFIG.PIXEL_RATIO) {
+            if (is_UP && this.y > 30 * CONFIG.PIXEL_RATIO) {
                 this.moveUp();
             }
-            else if (cursors.down.isDown && this.y < (CONFIG.GAME_HEIGHT - 20) * CONFIG.PIXEL_RATIO) {
+            else if (is_DOWN && this.y < (CONFIG.GAME_HEIGHT - 20) * CONFIG.PIXEL_RATIO) {
                 this.moveDown();
             }
             else {
                 this.floatV(delta);
             }
             // Fire
-            if (keyboard.isDown(Phaser.Keyboard.W)) {
+            var isAuto = true;
+            if (isAuto) {
                 this.fire();
+            }
+            else {
+                if (keyboard.isDown(Phaser.Keyboard.W)) {
+                    this.fire();
+                }
             }
         }
     };
@@ -132,21 +146,24 @@ var Player = /** @class */ (function (_super) {
         }
     };
     ;
-    Player.prototype.moveLeft = function (delta) {
-        this.body.velocity.x -= this.accel * delta;
+    Player.prototype.moveLeft = function () {
+        //console.log("moveLeft")
+        this.body.velocity.x -= this.accel * this.state.delta;
         if (this.body.velocity.x < -this.speed) {
             this.body.velocity.x = -this.speed;
         }
     };
     ;
-    Player.prototype.moveRight = function (delta) {
-        this.body.velocity.x += this.accel * delta;
+    Player.prototype.moveRight = function () {
+        //console.log("moveRight")
+        this.body.velocity.x += this.accel * this.state.delta;
         if (this.body.velocity.x > this.speed) {
             this.body.velocity.x = this.speed;
         }
     };
     ;
     Player.prototype.moveUp = function () {
+        //console.log("moveUp")
         this.body.velocity.y -= this.accel * this.state.delta;
         if (this.body.velocity.y < -this.speed) {
             this.body.velocity.y = -this.speed;
@@ -155,6 +172,7 @@ var Player = /** @class */ (function (_super) {
     };
     ;
     Player.prototype.moveDown = function () {
+        //console.log("moveDown")
         this.body.velocity.y += this.accel * this.state.delta;
         if (this.body.velocity.y > this.speed) {
             this.body.velocity.y = this.speed;

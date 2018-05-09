@@ -29,7 +29,7 @@ class Game extends Phaser.State {
     public cursors: Phaser.CursorKeys;
     public bulletPoolsMob: any[];
     public mobPools: any[];
-    public mobPoolsGround: any;
+    public mobPoolsGround: Phaser.Group[];
     public groundHeight: number;
     public enemyDelay: any[];
     public nextEnemyAt: any[];
@@ -73,7 +73,7 @@ class Game extends Phaser.State {
         this.bonusPool = this.add.group();
 
         for (i = 0; i < CONFIG.BONUSPOOL_SIZE; i++) {
-            o = new  Collectible(this, 'bonus_cube');
+            o = new Collectible(this, 'bonus_cube');
             this.bonusPool.add(o);
             o.exists = false;
             o.alive = false;
@@ -85,7 +85,7 @@ class Game extends Phaser.State {
 
         // PLAYER
 
-        this.player = new  Player(this);
+        this.player = new Player(this);
         this.score = 0;
 
         this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_PLATFORMER);
@@ -196,10 +196,8 @@ class Game extends Phaser.State {
 
         // Average
         for (k = 0; k < 2; k++) {
-
             for (i = 0; i < sizeX - 1; i++) {
                 for (j = 0; j < sizeY - 1; j++) {
-
                     map[i][j] = (
                         map[i][j] +
                         map[i + 1][j] +
@@ -397,7 +395,7 @@ class Game extends Phaser.State {
         this.bulletPoolsMob[0] = this.add.group();
 
         for (i = 0; i < CONFIG.BULLETPOOL_SIZE_ENNEMY; i++) {
-            o = new  Bullet(this, 0);
+            o = new Bullet(this, 0);
             this.bulletPoolsMob[0].add(o);
             o.exists = false;
             o.alive = false;
@@ -407,7 +405,7 @@ class Game extends Phaser.State {
         this.bulletPoolsMob[1] = this.add.group();
 
         for (i = 0; i < CONFIG.BULLETPOOL_SIZE_ENNEMY; i++) {
-            o = new  Bullet(this, 1);
+            o = new Bullet(this, 1);
             this.bulletPoolsMob[1].add(o);
             o.exists = false;
             o.alive = false;
@@ -422,7 +420,7 @@ class Game extends Phaser.State {
         this.mobPoolsGround[0] = this.add.group();
 
         for (i = 0; i < CONFIG.MOBPOOL_SIZE; i++) {
-            mob = new  Turret(this);
+            mob = new Turret(this);
             this.mobPoolsGround[0].add(mob);
             mob.exists = false;
             mob.alive = false;
@@ -436,7 +434,7 @@ class Game extends Phaser.State {
         this.mobPools[0] = this.add.group();
 
         for (i = 0; i < CONFIG.MOBPOOL_SIZE; i++) {
-            mob = new  Plane(this);
+            mob = new Plane(this);
             this.mobPools[0].add(mob);
             mob.exists = false;
             mob.alive = false;
@@ -446,7 +444,7 @@ class Game extends Phaser.State {
         this.mobPools[1] = this.add.group();
 
         for (i = 0; i < CONFIG.MOBPOOL_SIZE; i++) {
-            mob = new  Vessel(this);
+            mob = new Vessel(this);
             this.mobPools[1].add(mob);
             mob.exists = false;
             mob.alive = false;
@@ -456,7 +454,7 @@ class Game extends Phaser.State {
         this.mobPools[2] = this.add.group();
 
         for (i = 0; i < CONFIG.MOBPOOL_SIZE; i++) {
-            mob = new  Flagship(this);
+            mob = new Flagship(this);
             this.mobPools[2].add(mob);
             mob.exists = false;
             mob.alive = false;
@@ -552,7 +550,7 @@ class Game extends Phaser.State {
         this.updateCollisions();
 
         // Cloud spawn
-        // this.updateCloudSpawn();
+        this.updateCloudSpawn();
 
         // Background
         this.updateBackground(this.delta);
@@ -576,7 +574,7 @@ class Game extends Phaser.State {
 
     public updateEnemySpawnGround() {
 
-        var enemy, i, j, k, delta;
+        let enemy: Turret, i, j, k, delta;
 
         delta = CONFIG.WORLD_SWAP_HEIGHT * 28 / this.scrollSpeed;
 
@@ -600,8 +598,8 @@ class Game extends Phaser.State {
 
         for (k = 0; k < this.mobPoolsGround.length; k++) {
 
-            var nEnemies = Math.round(delta * 1000 / this.enemyDelayGround[k]) + 1;
-            var tiles = [];
+            let nEnemies = Math.round(delta * 1000 / this.enemyDelayGround[k]) + 1;
+            let tiles = [];
 
             for (i = 0; i < CONFIG.WORLD_WIDTH; i++) {
                 for (j = 0; j < CONFIG.WORLD_SWAP_HEIGHT; j++) {
@@ -613,13 +611,14 @@ class Game extends Phaser.State {
             }
 
             if (tiles.length > 0 && nEnemies > 0) {
-                for (var n = 0; n < tiles.length && n < nEnemies; n++) {
-                    var r = this.rnd.integerInRange(0, tiles.length - 1 - n);
+                for (let n = 0; n < tiles.length && n < nEnemies; n++) {
+                    let r = this.rnd.integerInRange(0, tiles.length - 1 - n);
                     if (this.mobPoolsGround[k].countDead() > 0) {
 
                         enemy = this.mobPoolsGround[k].getFirstExists(false);
-                        enemy.revive(tiles[r][0], tiles[r][1]);
+                        enemy.reviveW(tiles[r][0], tiles[r][1]);
                         // tiles.remove(r);
+                        // 移除数组里面的元素
                         remove(tiles, r);
                     }
                 }
@@ -630,7 +629,7 @@ class Game extends Phaser.State {
 
     public updateCloudSpawn() {
 
-        var cloud;
+        let cloud;
 
         if (this.nextCloudAt < this.time.now && this.cloudPool.countDead() > 0) {
 
@@ -686,10 +685,8 @@ class Game extends Phaser.State {
     }
 
     public playerVSmob(player, mob) {
-
         mob.kill();
         this.explode(mob);
-
         this.playerVSenemy(player);
     }
 
@@ -701,18 +698,13 @@ class Game extends Phaser.State {
     }
 
     public playerVSenemy(player) {
-
         player.takeDamage(10);
-
         if (player.health <= 0) {
             player.kill();
             player.alive = false;
             this.explode(player);
-
             this.sound['explosion_3'].play();
-
             this.statePlay2Postplay();
-
         } else {
             this.sound['hurt_1'].play();
         }
@@ -739,17 +731,16 @@ class Game extends Phaser.State {
 
     // MISC
 
+    /**
+     * 画游戏UI元素
+     */
     public updateGUI() {
-
-        var gui = '';
-
-        var life = '';
-        for (var i = 0; i < Math.round(this.player.health / 20); i++) {
+        let gui: string = '';
+        let life: string = '';
+        for (let i = 0; i < Math.round(this.player.health / 20); i++) {
             life += '@';
         }
-
         gui += 'HP  ' + life + '\n';
-
         gui += 'STR ' + this.player.playerStats.strength + '\n';
         gui += 'RAT ' + this.player.playerStats.rate + '\n';
         gui += 'SPD ' + this.player.playerStats.speed + '\n';
@@ -792,12 +783,10 @@ class Game extends Phaser.State {
     }
 
     public drawGround() {
+        for (let i = 0; i < CONFIG.WORLD_WIDTH; i++) {
+            for (let j = 0; j < this.groundHeight; j++) {
 
-
-        for (var i = 0; i < CONFIG.WORLD_WIDTH; i++) {
-            for (var j = 0; j < this.groundHeight; j++) {
-
-                var rowOffset = CONFIG.WORLD_HEIGHT - (this.groundHeight + this.scrollCounter) + j;
+                let rowOffset = CONFIG.WORLD_HEIGHT - (this.groundHeight + this.scrollCounter) + j;
 
                 if (rowOffset < 0) {
                     rowOffset += CONFIG.WORLD_HEIGHT;
@@ -809,7 +798,6 @@ class Game extends Phaser.State {
     }
 
     public onInputDown() {
-
         this.game.state.start('menu');
     }
 
@@ -817,9 +805,7 @@ class Game extends Phaser.State {
 
     public render() {
         // this.game.debug.body(this.player);
-
         if (CONFIG.DEBUG.bottomInfos) {
-
             this.game.debug.text(
                 'ground.y : ' + Math.round(this.ground.y) + 'px | ' +
                 this.mobPools[0].countLiving() + '+' + this.mobPools[1].countLiving() + '+' + this.mobPools[2].countLiving() + '+' + this.mobPoolsGround[0].countLiving() + ' mobs | ' +
@@ -833,7 +819,6 @@ class Game extends Phaser.State {
                 'Camera position : ' + this.camera.x + '/' + this.camera.y + ' | ' +
                 'SCROLL : ' + Math.round(this.ground.y % (28 * CONFIG.PIXEL_RATIO))
                 ,
-
                 0, CONFIG.GAME_HEIGHT * CONFIG.PIXEL_RATIO - 16 + 16);
         }
     }
