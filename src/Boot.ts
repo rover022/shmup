@@ -1,4 +1,6 @@
-class CONFIG {
+import IGameConfig = Phaser.IGameConfig;
+
+class CONFIG implements IGameConfig {
     static GAME_WIDTH: number = 320;
     static GAME_HEIGHT: number = 400;
     static PIXEL_RATIO: number = 2;

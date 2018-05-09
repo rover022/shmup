@@ -100,18 +100,19 @@ class Game extends Phaser.State{
     public createGUI() {
         // GUI
 
+
         this.guiText0 = this.add.bitmapText(0, 0, 'minecraftia', 'Get ready');
-        this.guiText0.scale.setTo(CONFIG.PIXEL_RATIO, CONFIG.PIXEL_RATIO);
+        this.guiText0.scale.set(CONFIG.PIXEL_RATIO, CONFIG.PIXEL_RATIO);
         this.guiText0.x = (this.game.width - this.guiText0.textWidth * CONFIG.PIXEL_RATIO) / 2;
         this.guiText0.y = (this.game.height - this.guiText0.textHeight * CONFIG.PIXEL_RATIO) / 2;
         this.guiText0.fixedToCamera = true;
 
         this.guiText1 = this.add.bitmapText(0, -5 * CONFIG.PIXEL_RATIO, 'minecraftia', '');
-        this.guiText1.scale.setTo(CONFIG.PIXEL_RATIO / 2, CONFIG.PIXEL_RATIO / 2);
+        this.guiText1.scale.set(CONFIG.PIXEL_RATIO / 2, CONFIG.PIXEL_RATIO / 2);
         this.guiText1.fixedToCamera = true;
 
         this.guiText2 = this.add.bitmapText(0, 32, 'minecraftia', '');
-        this.guiText2.scale.setTo(CONFIG.PIXEL_RATIO / 4, CONFIG.PIXEL_RATIO / 4);
+        this.guiText2.scale.set(CONFIG.PIXEL_RATIO / 4, CONFIG.PIXEL_RATIO / 4);
         this.guiText2.fixedToCamera = true;
 
         this.updateGUI();

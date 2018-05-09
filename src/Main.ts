@@ -231,7 +231,7 @@ class Main extends eui.UILayer {
             false
         );
 
-        game.CONFIG = CONFIG;
+        // game.config = CONFIG;
 
         game.state.add('boot', Boot);
         game.state.add('preloader', Preloader);
